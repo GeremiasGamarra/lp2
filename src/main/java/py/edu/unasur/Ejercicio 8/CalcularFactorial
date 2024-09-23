@@ -1,0 +1,18 @@
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+public class FactorialController {
+
+    @GetMapping("/api/algorithms/factorial/{number}")
+    public long calculateFactorial(@PathVariable int number) {
+        if (number < 0) {
+            throw new IllegalArgumentException("El número debe ser no negativo");
+        }
+
+        long factorial = 1;
+        for (int i = 2; i <= number; i++) {
+            factorial *= i;
+        }
+        return factorial;
+    }
+}

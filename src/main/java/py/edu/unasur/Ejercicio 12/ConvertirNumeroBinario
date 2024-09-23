@@ -1,0 +1,17 @@
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+public class BinaryConverterController {
+
+    @GetMapping("/api/algorithms/convert-to-binary/{number}")
+    public String convertToBinary(@PathVariable int number) {
+        // Validación: Asegurarse que el número sea no negativo
+        if (number < 0) {
+            throw new IllegalArgumentException("El número debe ser no negativo");
+        }
+
+        // Conversión a binario usando Integer.toBinaryString
+        String binaryString = Integer.toBinaryString(number);
+        return binaryString;
+    }
+}
