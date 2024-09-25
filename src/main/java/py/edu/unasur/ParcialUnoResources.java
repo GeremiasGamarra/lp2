@@ -190,4 +190,4 @@ public class ParcialUnoResources {
         return Response.ok(binary).build();
     }
 }
-//Este seria mi examen profe
+//Este seria mi examen profe 
