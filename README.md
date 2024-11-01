@@ -11,6 +11,10 @@
 
 [Tarea 6](Tarea6.md)
 
+[Tarea 7](Tarea7.md)
+
+[Tarea 8](Tarea8.md)
+
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
