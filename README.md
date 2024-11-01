@@ -1,16 +1,16 @@
 # Tareas entregada
+[Tarea 1](Tarea1.md)
 
-[Tarea 2](tarea2.md)
+[Tarea 2](Tarea2.md)
 
-[Tarea 3](tarea3.md)
+[Tarea 3](Tarea3.md)
 
-[Tarea 4](tarea4.md)
+[Tarea 4](Tarea4.md)
 
-[Tarea 6](tarea6.md)
+[Tarea 5](Tarea5.md)
 
-# Notas 
-[Notas y ejemplos](tarea2.md)
-# presupuesto-mensual
+[Tarea 6](Tarea6.md)
+
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 

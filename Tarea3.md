@@ -1,34 +1,53 @@
-# ¿Cómo funciona Quarkus en entornos web?
+Aclaraciones y Ampliaciones:
+Anotaciones JAX-RS:
+@PathParam: Explicar que esta anotación se utiliza para extraer valores de la URL y mapearlos a parámetros de método.
+@QueryParam: Mostrar cómo extraer parámetros de la query string (por ejemplo, ?param1=value1).
+@HeaderParam: Indicar cómo acceder a los encabezados de la solicitud.
+Inyección de Dependencias (CDI):
+Scopes: Explicar los diferentes scopes disponibles en CDI (ApplicationScoped, RequestScoped, SessionScoped) y cuándo utilizar cada uno.
+Qualifiers: Mostrar cómo utilizar qualifiers para inyectar diferentes implementaciones de una misma interfaz.
+Tipos de Datos:
+Jackson: Mencionar que Quarkus utiliza Jackson por defecto para serializar y deserializar objetos JSON.
+Customización: Explicar cómo personalizar la serialización y deserialización utilizando anotaciones de Jackson.
+Manejo de Errores:
+Excepciones: Mostrar cómo manejar excepciones y devolver respuestas de error adecuadas utilizando @ExceptionHandler.
+Status: Explicar cómo utilizar Response.status() para establecer el código de estado de la respuesta.
+Temas Adicionales a Considerar:
+Validación de Datos:
+Bean Validation: Mostrar cómo utilizar las anotaciones de Bean Validation (@NotNull, @Size, etc.) para validar los datos de entrada.
+Seguridad:
+Autenticación: Explicar cómo implementar la autenticación utilizando mecanismos como JWT o OAuth.
+Autorización: Mostrar cómo controlar el acceso a los recursos utilizando roles y permisos.
+Pruebas:
+Quarkus Test: Presentar las herramientas de testing proporcionadas por Quarkus para probar los recursos REST.
+Arquitectura de Microservicios:
+Quarkus y microservicios: Mostrar cómo Quarkus es una excelente opción para desarrollar microservicios gracias a su arranque rápido y bajo consumo de memoria.
+Ejemplo Ampliado:
+Java
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
-Quarkus es un framework diseñado para crear aplicaciones web modernas de manera rápida y eficiente. A continuación te explico cómo funciona en entornos web de una manera simple:
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import io.quarkus.security.identity.SecurityIdentity;
 
-## 1. **Desarrollo Rápido**
-Quarkus tiene una característica llamada "live coding" que permite a los desarrolladores ver los cambios que hacen en el código de manera inmediata, sin necesidad de reiniciar la aplicación. Esto acelera el proceso de desarrollo web porque puedes probar nuevas funcionalidades al instante.
+@Path("/users")
+public class UserResource {
 
-## 2. **Optimización para la Nube**
-Quarkus está pensado para funcionar muy bien en la nube. Cuando creas una aplicación con Quarkus, esta se ejecuta de manera eficiente en contenedores como Docker y en plataformas de Kubernetes. Esto es importante porque las aplicaciones web modernas a menudo se ejecutan en estos entornos escalables.
+    @Inject
+    SecurityIdentity identity;
 
-## 3. **Arranque rápido y bajo consumo de memoria**
-Quarkus permite que las aplicaciones web arranquen rápidamente y usen menos recursos del sistema, como la memoria. Esto es útil en entornos donde se necesitan muchos servicios pequeños (microservicios) que se inician y detienen frecuentemente.
+    @GET
+    @Path("/{id}")   
 
-## 4. **Soporte para estándares web**
-Quarkus es compatible con las tecnologías estándar utilizadas para crear aplicaciones web, como:
-   - **RESTful APIs**: Quarkus facilita la creación de servicios web REST que son muy comunes en aplicaciones web modernas.
-   - **JSON**: Las aplicaciones web suelen intercambiar datos en formato JSON, y Quarkus ofrece un soporte eficiente para trabajar con este tipo de datos.
-   - **Bases de datos**: A través de herramientas como Panache, Quarkus facilita la conexión con bases de datos para gestionar la información que tu aplicación web necesita.
+    @Produces(MediaType.APPLICATION_JSON)
+    public User getUserById(@PathParam("id") Long id) {
+        // Verificar si el usuario tiene permiso para acceder al recurso
+        if (!identity.hasRole("ADMIN")) {
+            throw new ForbiddenException("No tienes permiso para acceder a este recurso.");
+        }
 
-## 5. **Facilidad para integraciones**
-En entornos web, a menudo necesitas integrar diferentes servicios y APIs externas. Quarkus facilita este proceso al proporcionar varias extensiones que permiten conectar tu aplicación a otros servicios, como bases de datos, sistemas de mensajería y más.
+        return User.findById(id);
+    }
 
-## 6. **Microservicios**
-Quarkus está optimizado para crear microservicios, que son pequeñas partes de una aplicación web que se ejecutan de manera independiente. Esto es especialmente útil cuando quieres escalar una aplicación web de manera eficiente en la nube.
-
-### Resumen:
-- **Desarrollo rápido** con cambios en vivo.
-- **Optimizado para la nube**, ideal para contenedores y Kubernetes.
-- **Arranque rápido y bajo consumo** de recursos.
-- Soporte para **RESTful APIs**, **JSON**, y **bases de datos**.
-- Fácil integración con otros servicios.
-- Perfecto para **microservicios**.
-
-En resumen, Quarkus está diseñado para que puedas construir aplicaciones web modernas de forma rápida, eficiente y escalable, aprovechando al máximo las ventajas de la nube y los microservicios.
+    // ... otros métodos
+}
