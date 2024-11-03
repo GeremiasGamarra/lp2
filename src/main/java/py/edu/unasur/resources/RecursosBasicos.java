@@ -94,10 +94,14 @@ public class RecursosBasicos {
         return respuesta;
     }
 
+    /**
+     * @return
+     */
     @GET
     @Path("/clase-generica-single")
     @Produces(MediaType.APPLICATION_JSON)
     public Respuesta<TestResult> getQueRetornaUnaClaseGenerica() {
+        @SuppressWarnings({ "rawtypes", "unchecked" })
         Respuesta<TestResult> respuesta = new Respuesta();
         respuesta.setCodigo(300);
         respuesta.setMensaje("EXITO");
@@ -114,6 +118,7 @@ public class RecursosBasicos {
     @Path("/clase-generica-complex")
     @Produces(MediaType.APPLICATION_JSON)
     public Respuesta<TestResult> getQueRetornaUnaClaseGenericaComplex() {
+        @SuppressWarnings({ "rawtypes", "unchecked" })
         Respuesta<TestResult> respuesta = new Respuesta();
         respuesta.setCodigo(300);
         respuesta.setMensaje("EXITO");

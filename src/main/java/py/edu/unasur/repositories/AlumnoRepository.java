@@ -15,7 +15,6 @@ import py.edu.unasur.models.Alumno;
 @ApplicationScoped
 public class AlumnoRepository {
     private static final String FILE_PATH = "src/main/resources/alumno.json";
-    private Alumno entityData;
     private ObjectMapper mapper;
     private List<Alumno> lista;
     

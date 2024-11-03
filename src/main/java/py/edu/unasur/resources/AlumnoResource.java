@@ -20,10 +20,7 @@ public  class AlumnoResource {
 
     private final AlumnoService service;
     
-    private final GastosArchivoService gastosArchivoService;
-    
     public AlumnoResource(AlumnoService service, GastosArchivoService gastosArchivoService){
-        this.gastosArchivoService = gastosArchivoService;
         this.service = service;
     }
 
